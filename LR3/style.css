@@ -1,0 +1,145 @@
+
+.Myicon{
+    width: 2vw;
+    height:3.5vh;
+    background-color: #f0eded;
+    color: black;
+    text-align: center;
+    border-radius: 50%;
+    padding: 0.3em;
+    margin-bottom: 3px;
+}
+#sent_to_director{
+    border-color: #f0eded;
+    border-radius: 0px;
+    border-width: 3px; 
+}
+.btn_yellow{
+    background-color: #f2cb07;
+    width: 80%;
+    margin-bottom: 8px;
+    border-radius: 0px;
+    border-width: 0px;
+}
+.contacts{
+    font-size: 13px;
+    background-color: #fce6b8;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #f2bc50;
+    margin-bottom: 3px;
+    
+}
+.bi-telephone{
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    color: green;
+}
+.nav{
+    background-color: gainsboro;
+    text-align: center;
+    margin:5px;
+    padding: 5px;
+}
+#logo{
+    width: 100%;
+}
+.btn-secondary{
+    color: black;
+    font-size: 13px;
+    background-color: gainsboro;
+    border-color: gainsboro;
+}
+.path{
+    color:grey;
+    font-size: 13px;
+}
+.info{
+    display: inline-block;
+    font-size: 15px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+#quantity{
+    width: 9%;
+    display: inline-block;
+}
+#Info_deliv{
+    display: block;
+    color: green;
+    font-style: normal;
+}
+.form-control{
+    display: inline-block;
+    width: 75%;
+}
+.news a{
+    text-decoration: none;
+}
+.news p{
+    font-size: 10px;
+    color:darkgrey;
+}
+.news h3{
+    border-bottom: 1px #f2cb07 solid;
+    border-width: 2px;
+    width:62%
+}
+.news #newsheader{
+    border-bottom: 1px #f2cb07 solid;
+    border-width: 2px;
+    width: 38%;  
+}
+.news button{
+  border: 0;
+  background: #f2cb07;
+  color: black;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin: 5px;
+  margin-bottom: 10px;
+}
+.btn_yellow2{
+    background-color: #f2cb07;
+    width: 50%;
+    border-radius: 0px;
+    border-width: 0px;
+    margin: 10px;
+}
+.similar{
+    border-style: solid;
+    border-width: 1px;
+    width: 30%;
+    text-align: center;
+    margin: 15px;
+    padding: 5px;
+}
+.simpng{
+    width: 200px;
+    height: 200px;
+}
+.footer{
+    margin-top: 50px;
+    padding:20px;
+    background-color: #e8e8e8;
+}
+.footer a{
+    color: black;
+    font-size: 13px;
+}
+.footer hr{
+    margin: 10px;
+    margin-bottom: 40px;
+    color: #bfbfbf;
+}
+.footer .filial p{
+    font-size: 15px;
+    text-decoration:underline;
+}
+.bi-geo-alt-fill{
+    color: #fcd779;
+    margin-right: 10px;
+}
