@@ -93,8 +93,8 @@ function create_user($mail,$password,$name,$blood_type,$rh_factor,$vk_link,$gend
 function check_user($linc){
         if (!empty($_POST['Email2']) && !empty($_POST['Password2'])) {
 
-            $username = htmlspecialchars($_POST['Email2']);
-            $password = htmlspecialchars($_POST['Password2']);
+            $username = $linc->real_escape_string($_POST['Email2']);
+            $password = $linc->real_escape_string($_POST['Password2']);
             $query = mysqli_query($linc, "SELECT * FROM users WHERE Mail='$username'");
             $row = mysqli_fetch_assoc($query);
 
