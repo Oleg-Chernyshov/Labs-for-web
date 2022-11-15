@@ -27,7 +27,7 @@
             <form action="Register.php" method="post" autocomplete="off">
                 <label>Email (Логин) *</label>
                 <div class="mb-3">
-                    <input type="email" class="form-control" name="Email" placeholder="Enter your email" <?php if (isset($_POST['Email'])){?> value= "<?php echo $_POST['Email'];}?>">
+                    <input type="email" class="form-control" name="Email" placeholder="Enter your email" <?php if (isset($_POST['Email'])){?> value= "<?php echo htmlspecialchars($_POST['Email']);}?>">
                     <?php if($err['err_email'] == "Required field")
                     {
                     ?> <p style="color: red">Это обязательное поле</p><?php
@@ -39,7 +39,7 @@
                 </div>
                 <label>ФИО</label>
                 <div class="mb-3">
-                    <input type="text" class="form-control form-control-danger" name="Name_user" placeholder="Enter your name" value="<?php if (isset($_POST['Name_user'])) echo $_POST['Name_user']?>">
+                    <input type="text" class="form-control form-control-danger" name="Name_user" placeholder="Enter your name" value="<?php if (isset($_POST['Name_user'])) echo htmlspecialchars($_POST['Name_user'])?>">
                 </div>
                 <label>Группа крови</label>
                 <div class="mb-3">
@@ -93,7 +93,7 @@
                 </div>
                 <label>Ссылка на профиль в ВК</label>
                 <div class="mb-3">
-                     <input type="url" class="form-control" name="Vk_url" placeholder="https://vk.com/YourPage" value="<?php if (isset($_POST['Vk_url'])) echo $_POST['Vk_url']?>">
+                     <input type="url" class="form-control" name="Vk_url" placeholder="https://vk.com/YourPage" value="<?php if (isset($_POST['Vk_url'])) echo htmlspecialchars($_POST['Vk_url'])?>">
                 </div>
                 <label>Ваш пол *</label>
                 <div class="mb-3">
@@ -121,11 +121,11 @@
                 </div>
                 <label>Ваши интересы</label>
                 <div class="mb-3">
-                    <textarea class="form-control" name="Interes"><?php if (isset($_POST['Interes'])) echo $_POST['Interes'] ?></textarea>
+                    <textarea class="form-control" name="Interes"><?php if (isset($_POST['Interes'])) echo htmlspecialchars($_POST['Interes']) ?></textarea>
                 </div>
                 <label>Ваша дата рождения *</label>
                 <div class="mb-3">
-                    <input type="date" class="form-control" name="Date" value="<?php if (isset($_POST['Date'])) echo $_POST['Date']?>">
+                    <input type="date" class="form-control" name="Date" value="<?php if (isset($_POST['Date'])) echo htmlspecialchars($_POST['Date'])?>">
                     <?php if($err['err_date'] == "Required field")
                     {
                         ?> <p style="color: red">Это обязательное поле</p><?php
@@ -137,11 +137,11 @@
                 </div>
                 <label>Ваш адрес проживания (Город)</label>
                 <div class="md-3">
-                    <input type="text" class="form-control" name="Home" value="<?php if (isset($_POST['Home'])) echo $_POST['Home']?>">
+                    <input type="text" class="form-control" name="Home" value="<?php if (isset($_POST['Home'])) echo htmlspecialchars($_POST['Home'])?>">
                 </div>
                 <label>Введите пароль *</label>
                 <div class="mb-3">
-                    <input type="password" class="form-control" name="Password" placeholder="Enter password" value="<?php if (isset($_POST['Password'])) echo $_POST['Password']?>">
+                    <input type="password" class="form-control" name="Password" placeholder="Enter password" value="<?php if (isset($_POST['Password'])) echo htmlspecialchars($_POST['Password'])?>">
                     <?php if($err['err_pas'] == "Required field")
                     {
                         ?> <p style="color: red">Это обязательное поле</p><?php

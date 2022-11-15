@@ -26,7 +26,7 @@
              <form action="Enter.php" method="post" autocomplete="off">
                  <label>Email</label>
                  <div class="mb-3">
-                     <input type="email" class="form-control" name="Email2" placeholder="Enter your email" value="<?php if (isset($_POST['Email2'])) echo $_POST['Email2']?>">
+                     <input type="email" class="form-control" name="Email2" placeholder="Enter your email" value="<?php if (isset($_POST['Email2'])) echo (htmlspecialchars($_POST['Email2']))?>">
                  </div>
                  <label>Password</label>
                  <div class="mb-3">
