@@ -30,7 +30,7 @@
                     <button type="submit" name="Zd3" class="btn btn-primary">Указатель таблиц</button>
                 </div>
                 <div class="pt-2">
-                    <button type="submit" name="Zd4" class="btn btn-primary">Подстветить повторы</button>
+                    <button type="submit" name="Zd4" class="btn btn-primary">Удалить запретные слова</button>
                 </div>
             </form>
             <h4 class="py-2">Результат:</h4>
@@ -38,14 +38,14 @@
                 if(isset($res_1)){?>
                     <ol>
                         <?php foreach($res_1 as $element) { ?>
-                            <li> <?php echo (htmlspecialchars($element->plaintext))?></li>
+                            <li> <?php echo $element?></li>
                         <?php }?>
                     </ol>
                 <?php }
             ?>
             <?php
                 if(isset($res_2)){
-                    echo ("<textarea class='form-control'>".$res_2."</textarea>");
+                    echo ($res_2);
                 }
             ?>
             <?php
@@ -59,9 +59,7 @@
             <p>
             <?php
             if(isset($res_4)){
-                foreach ($res_4 as $element){
-                    echo $element." ";
-                }
+                echo $_POST['text'];
             }
             ?>
             </p>

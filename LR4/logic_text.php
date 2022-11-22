@@ -20,17 +20,21 @@ if(isset($_GET['preset'])){
 }
 //Zd1===================================================================================================================
 $res_1 = [];
+$h = [];
 if (isset($_POST['Zd1'])&&$_POST['text']!="") {
     $dom = str_get_html($_POST['text']);
-    $res_1 = $dom->find('h1,h2');
+    $h = $dom->find('h1,h2');
+    foreach ($h as $element){
+        $res_1[] = htmlspecialchars($element->plaintext);
+    }
 }
 //Zd2===================================================================================================================
 if (isset($_POST['Zd2'])&&$_POST['text']!="") {
     $str = $_POST['text'];
-    $str = preg_replace("/[!]{4,}/","!!!", $str);
-    $str = preg_replace("/[.]{4,}/","...", $str);
-    $str = preg_replace("/[?]{1,}/","?", $str);
-    $str = preg_replace("/[,]{1,}/",",", $str);
+    $str = preg_replace("/[!]{4,}/u","!!!", $str);
+    $str = preg_replace("/[.]{4,}/u","...", $str);
+    $str = preg_replace("/[?]{1,}/u","?", $str);
+    $str = preg_replace("/[,]{1,}/u",",", $str);
     $res_2 = $str;
 }
 //Zd3===================================================================================================================
@@ -39,7 +43,7 @@ if (isset($_POST['Zd3'])&&$_POST['text']!="") {
     $num = 1;
     $res_3 = [];
     foreach($dom->find("tbody") as $element){
-        $table_text=$element->first_child()->plaintext;
+        $table_text=$element->first_child()->first_child()->plaintext;
         $element->id="table$num";
         $res_3[] =  '<a href="#table'.$num.'">Таблица номер '.$num.'</a><div>'.$table_text.'</div>';
         $num++;
@@ -48,21 +52,26 @@ if (isset($_POST['Zd3'])&&$_POST['text']!="") {
 }
 //Zd4===================================================================================================================
 if (isset($_POST['Zd4'])&&$_POST['text']!="") {
-    $array_text = explode(' ',$_POST['text']);
-    $flag = 0;
-    for($i=0;$i<count($array_text)-1;$i++){
-        if($array_text[$i] == $array_text[$i+1]){
-            $array_text[$i] = "<span style='text-decoration: underline;text-decoration-color: red;'>".$array_text[$i]."</span>";
-            $flag = 1;
+    $dom = str_get_html($_POST['text']);
+    $forbidden_words = ["пух", "рот", "делать", "ехать", "около", "для"];
+    $k = 0;
+    foreach($dom->find("text") as $element) {
+        $str = explode(" ", $element->plaintext);
+        foreach($str as $word) {
+            foreach ($forbidden_words as $forbidden) {
+                if(preg_match("/^".$forbidden.".*$/u",mb_strtolower($word))){
+                    $word = str_replace($forbidden,str_repeat("#",mb_strlen($forbidden)),mb_strtolower($word));
+                    $str[$k] = $word;
+                }
+            }
+            $k++;
         }
-        elseif($flag == 1){
-            $array_text[$i] = "<span style='text-decoration: underline;text-decoration-color: red;'>".$array_text[$i]."</span>";
-            $flag = 0;
-        }
+        $k = 0;
+        $res_4 = "";
+        for($i = 0;$i<count($str);$i++)
+            $res_4 .= $str[$i]." ";
+        $element->innertext = $res_4;
     }
-    if($flag == 1){
-        $array_text[array_key_last($array_text)] = "<span style='text-decoration: underline;text-decoration-color: red;'>".$array_text[array_key_last($array_text)]."</span>";
-    }
-    $res_4 = $array_text;
+    $_POST['text'] = $dom;
 }
 ?>
