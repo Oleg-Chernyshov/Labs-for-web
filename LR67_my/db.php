@@ -37,7 +37,7 @@ class Database {
     public static function prepare($statement): \PDOStatement {
         return static::connection()->prepare($statement);
     }
-    
+
 
     public static function query($statement) {
         return static::connection()->query($statement);

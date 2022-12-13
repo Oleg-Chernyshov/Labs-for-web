@@ -26,20 +26,13 @@ class TableModule
             return false;
         }
 
-        if (empty($_FILES)) {
-            return false;
-        }
-
-        if (!file_exists($_FILES['img']['tmp_name']) || !is_uploaded_file($_FILES['img']['tmp_name'])) {
-            return false;
-        }
 
         $whitelist = array("image/png", "image/jpg", "image/jpeg");
         if (!in_array($_FILES['img']['type'], $whitelist)) {
             return false;
         }
 
-        if ($_FILES['img']['size'] > 1024000) {
+        if ($_FILES['img']['size'] > 10240000) {
             return false;
         }
 
@@ -91,7 +84,7 @@ class TableModule
         if (isset($_POST['delete'])) {
             $id = intval($_POST['delete']);
             $stmt = Database::query("SELECT image_path FROM `repair orders` WHERE Id = $id");
-            $img_p = $stmt->fetch()['img_path'];
+            $img_p = $stmt->fetch()['image_path'];
 
             $file = $_SERVER['DOCUMENT_ROOT'] . "/LR67_my/img/" . $img_p;
             unlink($file);
@@ -121,11 +114,16 @@ class TableModule
 
 
             if ($img_path != "") {
+                $stmt = Database::prepare("SELECT image_path FROM `repair orders` WHERE id = :id");
+                $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+                $dat = $stmt->fetch();
+
                 if (!TableModule::check_img()) {
                     TableModule::err_msg("Невозможно загрузить картинку");
                     return;
                 }
-                unlink($_SERVER['DOCUMENT_ROOT'] . "/LR67_my/img/" . $dat['img_path']);
+                unlink($_SERVER['DOCUMENT_ROOT'] . "/LR67_my/img/" . $dat['image_path']);
                 $stmt = Database::prepare("UPDATE `repair orders` SET image_path = :i WHERE Id = :id");
                 $stmt->bindValue(":i", $img_path, PDO::PARAM_STR);
                 $stmt->bindValue(":id", $id, PDO::PARAM_INT);
