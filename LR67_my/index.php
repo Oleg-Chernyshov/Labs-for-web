@@ -31,7 +31,7 @@ $types = $result[1];
                     <?php
                     $sel_count = 1;
                     foreach ($types as $t) {
-                        $tt = $t['Name of the repair'];
+                        $tt = htmlspecialchars($t['Name of the repair']);
                         echo "<option value='$sel_count'>$tt</option>";
                         $sel_count++;
                     }
@@ -72,7 +72,7 @@ $types = $result[1];
     foreach($data as $row) {
         $r_id = htmlspecialchars($row['Id']);
         echo "<td width='200' id='td$r_id 1'><img width='200' src='img/" . htmlspecialchars($row['Image_path']) . "'></td>";
-        echo "<td  id='td$r_id 2'>" . $row['Essence of the work'] . "</td>";
+        echo "<td  id='td$r_id 2'>" . htmlspecialchars($row['Essence of the work']) . "</td>";
         echo ("<td width='100' id='td$r_id 3' value='" . "'>" . htmlspecialchars($row['Name of the repair']) . "</td>");
         echo "<td id='td$r_id 4'>" . htmlspecialchars($row['Description']) . "</td>";
         echo "<td width='100' id='td$r_id 5'>" . htmlspecialchars($row['Cost']) . "</td>";
