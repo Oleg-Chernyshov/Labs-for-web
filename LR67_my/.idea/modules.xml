@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Documents/GitHub/Labs-for-web/LR3/.idea/LR2.iml" filepath="$USER_HOME$/Documents/GitHub/Labs-for-web/LR3/.idea/LR2.iml" />
-      <module fileurl="file://$USER_HOME$/Desktop/Labas-main/LR67/.idea/LR67.iml" filepath="$USER_HOME$/Desktop/Labas-main/LR67/.idea/LR67.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/LR67_my.iml" filepath="$PROJECT_DIR$/.idea/LR67_my.iml" />
     </modules>
   </component>
