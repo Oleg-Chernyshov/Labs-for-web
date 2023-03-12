@@ -49,7 +49,7 @@ include("../../header/header.php");
                                 <td class="text-center"><?= $item[$column] ?></td>
                             <?php endif ?>
                         <?php endif; ?>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     <td class="text-center">
                         <form action="../../modalWindows/<?= $table ?>/" class="form m-1 inline" method="GET">
                             <input type="number" class="d-none" name="item_id" value="<?= $item['id'] ?>">
@@ -57,13 +57,42 @@ include("../../header/header.php");
                                 Edit
                             </button>
                         </form>
-                        <form method="POST" class="inline">
-                            <button type="submit" value="<?= $item['id'] ?>"
-                                    name="<?= isset($item['image_path']) ? 'item--delWithImg' : 'item--del' ?>"
-                                    class="btn btn-danger form m-1">
+                        <?php if($title != "Категории"): ?>
+                            <form method="POST" class="inline">
+                                <button type="submit" value="<?= $item['id'] ?>"
+                                        name="<?= isset($item['image_path']) ? 'item--delWithImg' : 'item--del' ?>"
+                                        class="btn btn-danger form m-1">
+                                    Delete
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal<?=$item['id']?>">
                                 Delete
                             </button>
-                        </form>
+                            <div class="modal fade" id="DeleteModal<?=$item['id']?>" tabindex="-1" aria-labelledby="DeleteModalLebal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-black-50">Подвердите удаление / <?= $item['id']?> </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-danger">Все свзанные данные будут удалены</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form method="POST" class="inline">
+                                                <button type="submit" value="<?= $item['id'] ?>"
+                                                        name="<?= isset($item['image_path']) ? 'item--delWithImg' : 'item--del' ?>"
+                                                        class="btn btn-danger form m-1">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 </tr>
@@ -72,3 +101,5 @@ include("../../header/header.php");
         </table>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>

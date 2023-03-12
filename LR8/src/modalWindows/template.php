@@ -24,6 +24,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/src/header/header.php');
             <?php if (isset($_GET['item_id'])) : ?>
                 <input type="number" class="d-none" name="item_id" value="<?= $_GET['item_id'] ?>">
             <?php endif ?>
+            <?php if(isset($errors) && $errors != 1) echo $errors?>
             <?php foreach ($columns as $i => $column) : if ($column == 'id') continue; ?>
                 <?php if (is_int(strpos($column, 'id_')) === true) : ?>
                     <select name="item_<?= $column ?>" id="" class="form-select w-50 m-3">

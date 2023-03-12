@@ -32,7 +32,7 @@ class GeneralLogic
 
     public static function pushImg($files)
     {
-        $uploadfile = $_SERVER['DOCUMENT_ROOT'] . "./src2/img/" . $files['name'];
+        $uploadfile = $_SERVER['DOCUMENT_ROOT'] . "./src/img/" . $files['name'];
         move_uploaded_file($files['tmp_name'], $uploadfile);
 
     }
@@ -48,15 +48,15 @@ class GeneralLogic
         if (!in_array($files['type'], $whitelist)) {
             return false;
         }
-        $delFile = $_SERVER['DOCUMENT_ROOT'] . "./src2/img/" . $old_tmp_img_name;
+        $delFile = $_SERVER['DOCUMENT_ROOT'] . "./src/img/" . $old_tmp_img_name;
         unlink($delFile);
-        $uploadfile = $_SERVER['DOCUMENT_ROOT'] . "./src2/img/" . $files['name'];
+        $uploadfile = $_SERVER['DOCUMENT_ROOT'] . "./src/img/" . $files['name'];
         move_uploaded_file($files['tmp_name'], $uploadfile);
         return true;
     }
     public static function deleteImage(string  $img_p)
     {
-        $file = $_SERVER['DOCUMENT_ROOT'] . "./src2/img/" . $img_p;
+        $file = $_SERVER['DOCUMENT_ROOT'] . "./src/img/" . $img_p;
         unlink($file);
 
     }
