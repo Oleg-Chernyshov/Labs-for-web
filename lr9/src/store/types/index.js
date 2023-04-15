@@ -14,7 +14,7 @@ export default {
   },
   mutations: {
     setItems: (state, items) => {
-      if(state.items.length === 0)
+      if(1)
         state.items = items;
     },
     addItem: (state, item) => {

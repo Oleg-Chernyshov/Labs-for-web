@@ -32,10 +32,20 @@ const routes = [
     component: () => import('@/views/TypeEdit'),
   },
   {
+    path: '/work-sorted/:filter_id?',
+    name: 'WorkSorted',
+    props: (route) => {
+      return {
+        id: route.params.filter_id,
+      }
+    },
+    component: () => import('@/views/WorkSorted'),
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: () => import('@/views/WorksPage'),
-  },
+  }
 ]
 
 const router = createRouter({

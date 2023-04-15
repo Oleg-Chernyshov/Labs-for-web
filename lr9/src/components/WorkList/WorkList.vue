@@ -3,7 +3,7 @@
     <button @click="Refresh">Сбросить фильтр</button>
     <Table
       :headers="[
-        {isStudents:'true'},
+        {isWorks:'true'},
         {value: 'id', text: 'ID'},
         {value: 'name', text: 'Название'},
         {value: 'description', text: 'Описание'},

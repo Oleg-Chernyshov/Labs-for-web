@@ -75,9 +75,9 @@ export default {
     });
 
     watchEffect(() => {
-      const work = selectItemById( store,  props.id );
-      Object.keys(work).forEach(key => {
-        form[key] = work[key]
+      const type = selectItemById( store,  props.id );
+      Object.keys(type).forEach(key => {
+        form[key] = type[key]
       })
     });
 

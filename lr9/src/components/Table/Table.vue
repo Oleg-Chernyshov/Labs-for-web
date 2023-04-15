@@ -10,10 +10,10 @@
       </thead>
       <tbody :class="$style.body">
         <tr v-for="(item, idx) in items" :key="idx">
-          <td v-for="(key, idx) in colKeys" :key="idx">
+          <td v-for="(key, idy) in colKeys" :key="idy">
             <slot :name="key" v-bind="{ item }">
-              <div v-if="key==='type' && headers[0].isStudents==='true'">
-                <a @click.prevent="filter(item[key])" href="#">{{ item[key] }}</a>
+              <div v-if="key==='type' && headers[0].isWorks!=='true'">
+                <a @click.prevent="filter(item['id'])" href="#">{{ item[key] }}</a>
               </div>
               <div v-else>
                 {{ item[key] }}
@@ -47,7 +47,7 @@ export default {
     return{
       filter(filter_id){
         filter(store,filter_id)
-        router.push({ name: 'Works' })
+        router.push({ name: 'WorkSorted', params: {filter_id} })
       }
     }
   }
