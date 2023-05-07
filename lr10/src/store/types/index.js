@@ -1,10 +1,9 @@
-
 import api from './api';
 
 export default {
   namespaced: true,
   state: {
-    items: []
+    items: [],
   },
   getters: {
     items: state => state.items,
@@ -18,45 +17,34 @@ export default {
       if(1)
         state.items = items;
     },
-    setItem: (state, item) => {
+    addItem: (state, item) => {
       state.items.push(item);
     },
     removeItem: (state, idRemove) => {
-      state.items = state.items.filter(({ id }) => id !== idRemove)
+      state.items = state.items.filter(({ id }) => id !== idRemove);
     },
     updateItem: (state, updateItem) => {
       const index = state.items.findIndex(item => +item.id === +updateItem.id);
       state.items[index] = updateItem;
-    },
-    filterTypes: (state, filter) => {
-      state.items = filter
-      console.log(state.items);
     }
   },
   actions: {
     fetchItems: async ({ commit }) => {
-      const response = await api.works();
+      const response = await api.types();
       const items = await response.json();
       commit('setItems', items)
     },
     removeItem: async ({ commit }, id) => {
-      const idRemovedItem = await api.remove(id);
+      const idRemovedItem = await api.remove( id );
       commit('removeItem', idRemovedItem);
-
     },
-    addItem: async ({ commit }, { name, description, price, type }) => {
-      const item = await api.add({ name, description, price, type })
-      commit('setItem', item)
+    addItem: async ({ commit }, { type, description }) => {
+      const item = await api.add({ type, description });
+      commit('addItem', item);
     },
-    updateItem: async ({ commit }, { id, description, price, type }) => {
-      const item = await api.update({ id, description, price, type });
+    updateItem: async ({ commit }, { id, type, description }) => {
+      const item = await api.update({ id, type, description });
       commit('updateItem', item);
-    },
-    filter: async ({ commit }, { type }) => {
-      const filter = await api.filter(type)
-      const items = await filter.json()
-      console.log(items);
-      commit("filterTypes", items)
-    },
+    }
   },
 }
