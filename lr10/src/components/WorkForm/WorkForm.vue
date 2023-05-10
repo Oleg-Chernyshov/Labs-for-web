@@ -4,55 +4,94 @@
       <div :class="$style.label">
         <label for="id">ID</label>
       </div>
-      <input v-model="form.id" disabled :class="$style.input"  id="id" placeholder="id" type="text">
+      <input
+        v-model="form.id"
+        disabled
+        :class="$style.input"
+        id="id"
+        placeholder="id"
+        type="text"
+      />
     </div>
     <div :class="$style.item">
       <div :class="$style.label">
         <label for="name">Название</label>
       </div>
-      <input v-model="form.name" :class="$style.input"  id="name" placeholder="Имя" type="text">
+      <input
+        v-model="form.name"
+        :class="$style.input"
+        id="name"
+        placeholder="Имя"
+        type="text"
+      />
     </div>
     <div :class="$style.item">
       <div :class="$style.label">
         <label for="description">Описание</label>
       </div>
-      <input v-model="form.description" :class="$style.input" id="description" placeholder="Описание" type="text">
+      <input
+        v-model="form.description"
+        :class="$style.input"
+        id="description"
+        placeholder="Описание"
+        type="text"
+      />
     </div>
     <div :class="$style.item">
       <div :class="$style.label">
         <label for="price">Цена</label>
       </div>
-      <input v-model="form.price" :class="$style.input" id="price" placeholder="Цена" type="number">
+      <input
+        v-model="form.cost"
+        :class="$style.input"
+        id="price"
+        placeholder="Цена"
+        type="number"
+      />
     </div>
     <div :class="$style.item">
       <div :class="$style.label">
         <label for="type">Тип</label>
       </div>
-      <select v-model="form.type" :class="$style.select" name="type" id="type">
-        <option v-for="({ type, id  }) in groupList" :key="id" :value="type">
-          {{ type }}
+      <select
+        v-model="form.type_name"
+        :class="$style.select"
+        name="type"
+        id="type"
+      >
+        <option
+          v-for="{ type_name, type_id } in groupList"
+          :key="type_id"
+          :value="type_name"
+        >
+          {{ type_name }}
         </option>
       </select>
     </div>
     <div :class="$style.item">
-      <Btn @click="onClick" :disabled="!isValidForm" theme="info">Сохранить</Btn>
+      <Btn @click="onClick" :disabled="!isValidForm" theme="info"
+        >Сохранить</Btn
+      >
     </div>
   </div>
 </template>
 
 <script>
-import { computed, reactive, onBeforeMount, watchEffect } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { computed, reactive, onBeforeMount, watchEffect, watch } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-import { selectItemById, fetchItems } from '@/store/works/selectors';
-import { selectItems as selectGroups, fetchItems as fetchGroups } from '@/store/works/selectors';
-import Btn from '@/components/Btn/Btn';
+import { selectItemById, fetchItems } from "@/store/works/selectors";
+import {
+  selectItems as selectGroups,
+  fetchItems as fetchGroups,
+} from "@/store/types/selectors";
+import Btn from "@/components/Btn/Btn";
 
 export default {
-  name: 'WorkForm',
+  name: "WorkForm",
   props: {
-    id: { type: String, default: '' },
+    id: { type: String, default: "" },
   },
   components: {
     Btn,
@@ -60,38 +99,52 @@ export default {
   setup(props, context) {
     const store = useStore();
     const router = useRouter();
-    const groupList = computed(() => selectGroups(store))
+    const groupList = computed(() => selectGroups(store));
+    console.log(groupList);
     const form = reactive({
-      id: '',
-      name: '',
-      description: '',
-      price: 0,
-      type: '',
+      id: "",
+      name: "",
+      description: "",
+      cost: 0,
+      type_name: "",
     });
 
+    console.log(form);
     onBeforeMount(() => {
       fetchItems(store);
       fetchGroups(store);
     });
 
     watchEffect(() => {
-      const type = selectItemById( store,  props.id );
-      Object.keys(type).forEach(key => {
-        form[key] = type[key]
-      })
+      const type = selectItemById(store, props.id);
+      console.log(type);
+      Object.keys(type).forEach((type_id) => {
+        form[type_id] = type[type_id];
+      });
     });
 
     return {
       groupList,
       form,
-      isValidForm: computed(() =>  !!(form.name && form.description && form.price>=0 && form.type)),
+      isValidForm: computed(
+        () =>
+          !!(form.name && form.description && form.cost >= 0 && form.type_name)
+      ),
       onClick: () => {
-        context.emit('submit', form);
-        router.push({ name: 'Works' })
-      }
-    }
+        console.log(groupList.value);
+        let index = -1;
+        for (let i = 0; i < groupList.value.length; i++) {
+          console.log(groupList);
+          if (groupList.value[i].type_name == form.type_name)
+            index = groupList.value[i].type_id;
+        }
+        form.type_name = index;
+        context.emit("submit", form);
+        router.push({ name: "Works" });
+      },
+    };
   },
-}
+};
 </script>
 
 <style module lang="scss">
@@ -109,7 +162,7 @@ export default {
   }
 
   .label {
-    flex: 0 0 150px
+    flex: 0 0 150px;
   }
 
   .input {

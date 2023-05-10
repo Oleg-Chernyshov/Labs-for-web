@@ -6,7 +6,9 @@ class Works extends Api {
    * Вернет список всех студентов
    * @returns {Promise<Response>}
    */
-  works = () => this.rest('/works/list.json');
+  works = () => this.rest('/works/list.json',{
+    method: 'GET',
+  });
 
   /**
    * Вернет отфлильтрованный список работ
@@ -22,8 +24,10 @@ class Works extends Api {
    */
   remove = ( id ) => this.rest('/works/delete-item', {
     method: 'POST',
-    'Content-Type': 'application/json',
-    body: JSON.stringify({ id }),
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "id=" + JSON.stringify(id)
   }).then(() => id) // then - заглушка, пока метод ничего не возвращает
 
   /**
@@ -31,11 +35,14 @@ class Works extends Api {
    * @param student объект работы, взятый из FormWorks
    * @returns {Promise<Response>}
    */
-  add = ( work ) => this.rest('/works/add-item', {
+  add = (work) => this.rest('/works/add-item', {
     method: 'POST',
-    'Content-Type': 'application/json',
-    body: JSON.stringify(work),
-  }).then(() => ({...work, id: new Date().getTime()})) // then - заглушка, пока метод ничего не возвращает
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "work="+JSON.stringify(work)
+          
+  }).then(() => (work)) // then - заглушка, пока метод ничего не возвращает
 
   /**
    * Отправит измененную запись
@@ -44,8 +51,10 @@ class Works extends Api {
    */
   update = ( work ) => this.rest('/works/update-item', {
     method: 'POST',
-    'Content-Type': 'application/json',
-    body: JSON.stringify(work),
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "work="+JSON.stringify(work)
   }).then(() => work) // then - заглушка, пока метод ничего не возвращает
 
 

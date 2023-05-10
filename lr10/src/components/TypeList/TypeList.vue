@@ -1,14 +1,14 @@
 <template>
   <div :class="$style.root">
     <Table
-        :headers="[
-          {isStudents:'false'},
-          {value: 'id', text: 'ID'},
-          {value: 'type', text: 'Тип'},
-          {value: 'description', text: 'Описание'},
-          {value: 'control', text: 'Действие'},
-        ]"
-        :items="items"
+      :headers="[
+        { isStudents: 'false' },
+        { value: 'type_id', text: 'ID' },
+        { value: 'type_name', text: 'Тип' },
+        { value: 'description', text: 'Описание' },
+        { value: 'control', text: 'Действие' },
+      ]"
+      :items="items"
     >
       <template v-slot:control="{ item }">
         <Btn @click="onClickEdit(item.id)" theme="info">Изменить</Btn>
@@ -22,15 +22,15 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
-import { selectItems, removeItem, fetchItems  } from '@/store/types/selectors'
-import Table from '@/components/Table/Table';
-import Btn from '@/components/Btn/Btn';
+import { selectItems, removeItem, fetchItems } from "@/store/types/selectors";
+import Table from "@/components/Table/Table";
+import Btn from "@/components/Btn/Btn";
 export default {
-  name: 'TypeList',
+  name: "TypeList",
   components: {
     Btn,
     Table,
@@ -43,18 +43,20 @@ export default {
     });
     return {
       items: computed(() => selectItems(store)),
-      onClickRemove: id => {
-        const isConfirmRemove = confirm('Вы действительно хотите удалить запись?')
+      onClickRemove: (id) => {
+        const isConfirmRemove = confirm(
+          "Вы действительно хотите удалить запись?"
+        );
         if (isConfirmRemove) {
-          removeItem(store, id)
+          removeItem(store, id);
         }
       },
-      onClickEdit: ( id ) => {
-        router.push({ name: 'TypeEdit', params: { id } })
-      }
-    }
+      onClickEdit: (id) => {
+        router.push({ name: "TypeEdit", params: { id } });
+      },
+    };
   },
-}
+};
 </script>
 
 <style module lang="scss">

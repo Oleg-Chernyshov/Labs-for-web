@@ -15,8 +15,7 @@ export default {
   },
   mutations: {
     setItems: (state, items) => {
-      if(1)
-        state.items = items;
+      state.items = items;
     },
     setItem: (state, item) => {
       state.items.push(item);
@@ -36,7 +35,9 @@ export default {
   actions: {
     fetchItems: async ({ commit }) => {
       const response = await api.works();
+      console.log(response);
       const items = await response.json();
+      console.log(items);
       commit('setItems', items)
     },
     removeItem: async ({ commit }, id) => {
@@ -44,18 +45,18 @@ export default {
       commit('removeItem', idRemovedItem);
 
     },
-    addItem: async ({ commit }, { name, description, price, type }) => {
-      const item = await api.add({ name, description, price, type })
+    addItem: async ({ commit }, { name, description, cost, type_name }) => {
+      console.log(cost,type_name);
+      const item = await api.add({ name, description, cost, type_name })
       commit('setItem', item)
     },
-    updateItem: async ({ commit }, { id, description, price, type }) => {
-      const item = await api.update({ id, description, price, type });
+    updateItem: async ({ commit }, { id, name, description, cost, type_name }) => {
+      const item = await api.update({ id, name, description, cost, type_name });
       commit('updateItem', item);
     },
     filter: async ({ commit }, { type }) => {
       const filter = await api.filter(type)
       const items = await filter.json()
-      console.log(items);
       commit("filterTypes", items)
     },
   },

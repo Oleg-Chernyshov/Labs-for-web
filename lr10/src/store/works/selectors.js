@@ -13,14 +13,14 @@ export const removeItem = (store, id) => {
   dispatch('works/removeItem', id);
 }
 
-export const addItem = (store, { name, description, price, type }) => {
+export const addItem = (store, { name, description, cost, type_name }) => {
   const { dispatch } = store;
-  dispatch('works/addItem', { name, description, price, type });
+  dispatch('works/addItem', { name, description, cost, type_name });
 }
 
-export const updateItem = (store, { id, description, price, type }) => {
+export const updateItem = (store, { id, name, description, cost, type_name }) => {
   const { dispatch } = store;
-  dispatch('works/updateItem', { id, description, price, type });
+  dispatch('works/updateItem', { id, name, description, cost, type_name });
 }
 
 export const selectItemById = (store, id) => {

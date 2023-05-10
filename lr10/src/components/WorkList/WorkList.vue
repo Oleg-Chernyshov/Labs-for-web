@@ -3,13 +3,13 @@
     <button @click="Refresh">Сбросить фильтр</button>
     <Table
       :headers="[
-        {isWorks:'true'},
-        {value: 'id', text: 'ID'},
-        {value: 'name', text: 'Название'},
-        {value: 'description', text: 'Описание'},
-        {value: 'price', text: 'Цена'},
-        {value: 'type', text: 'Тип'},
-        {value: 'control', text: 'Действие'},
+        { isWorks: 'true' },
+        { value: 'id', text: 'ID' },
+        { value: 'name', text: 'Название' },
+        { value: 'description', text: 'Описание' },
+        { value: 'cost', text: 'Цена' },
+        { value: 'type_name', text: 'Тип' },
+        { value: 'control', text: 'Действие' },
       ]"
       :items="items"
     >
@@ -25,16 +25,16 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
-import { selectItems, removeItem, fetchItems } from '@/store/works/selectors';
-import Table from '@/components/Table/Table';
-import Btn from '@/components/Btn/Btn';
+import { selectItems, removeItem, fetchItems } from "@/store/works/selectors";
+import Table from "@/components/Table/Table";
+import Btn from "@/components/Btn/Btn";
 
 export default {
-  name: 'WorksList',
+  name: "WorksList",
   components: {
     Table,
     Btn,
@@ -47,31 +47,30 @@ export default {
     });
     return {
       items: computed(() => selectItems(store)),
-      onClickRemove: id => {
-        const isConfirmRemove = confirm('Вы действительно хотите удалить запись?')
+      onClickRemove: (id) => {
+        const isConfirmRemove = confirm(
+          "Вы действительно хотите удалить запись?"
+        );
         if (isConfirmRemove) {
-          removeItem(store, id)
+          removeItem(store, id);
         }
       },
-      onClickEdit: id => {
-        router.push({ name: 'WorkEdit', params: { id } })
+      onClickEdit: (id) => {
+        router.push({ name: "WorkEdit", params: { id } });
       },
-      Refresh(){
+      Refresh() {
         fetchItems(store);
-        router.push({name:'Works'})
-      }
-    }
-  }
-
-}
+        router.push({ name: "Works" });
+      },
+    };
+  },
+};
 </script>
 
 <style module lang="scss">
 .root {
-
   .create {
     margin-top: 16px;
   }
-
 }
 </style>

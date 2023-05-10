@@ -6,14 +6,16 @@
           <th v-for="{ value, text } in headers" :key="value">
             {{ text }}
           </th>
-      </tr>
+        </tr>
       </thead>
       <tbody :class="$style.body">
         <tr v-for="(item, idx) in items" :key="idx">
           <td v-for="(key, idy) in colKeys" :key="idy">
             <slot :name="key" v-bind="{ item }">
-              <div v-if="key==='type' && headers[0].isWorks!=='true'">
-                <a @click.prevent="filter(item['id'])" href="#">{{ item[key] }}</a>
+              <div v-if="key === 'type_name' && headers[0].isWorks !== 'true'">
+                <a @click.prevent="filter(item['id'])" href="#">{{
+                  item[key]
+                }}</a>
               </div>
               <div v-else>
                 {{ item[key] }}
@@ -27,11 +29,11 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-import { filter } from '@/store/works/selectors'
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { filter } from "@/store/works/selectors";
 export default {
-  name: 'Table',
+  name: "Table",
   props: {
     items: Array,
     headers: Array,
@@ -39,19 +41,19 @@ export default {
   computed: {
     colKeys() {
       return this.headers.map(({ value }) => value);
-    }
+    },
   },
-  setup(){
+  setup() {
     const store = useStore();
     const router = useRouter();
-    return{
-      filter(filter_id){
-        filter(store,filter_id)
-        router.push({ name: 'WorkSorted', params: {filter_id} })
-      }
-    }
-  }
-}
+    return {
+      filter(filter_id) {
+        filter(store, filter_id);
+        router.push({ name: "WorkSorted", params: { filter_id } });
+      },
+    };
+  },
+};
 </script>
 
 <style module lang="scss">
@@ -60,7 +62,8 @@ export default {
   .table {
     width: 100%;
     border-collapse: collapse;
-    th, td {
+    th,
+    td {
       padding: 10px;
       text-align: center;
     }
@@ -72,5 +75,8 @@ export default {
   .head {
   }
 }
-
+img {
+  width: 300px;
+  height: 200px;
+}
 </style>
