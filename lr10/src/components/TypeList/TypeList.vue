@@ -5,14 +5,15 @@
         { isStudents: 'false' },
         { value: 'type_id', text: 'ID' },
         { value: 'type_name', text: 'Тип' },
-        { value: 'description', text: 'Описание' },
         { value: 'control', text: 'Действие' },
       ]"
       :items="items"
     >
       <template v-slot:control="{ item }">
-        <Btn @click="onClickEdit(item.id)" theme="info">Изменить</Btn>
-        <Btn @click="onClickRemove(item.id)" theme="danger">Удалить</Btn>
+        <Btn @click="onClickEdit(item['type_id'])" theme="info">Изменить</Btn>
+        <Btn @click="onClickRemove(item['type_id'])" theme="danger"
+          >Удалить</Btn
+        >
       </template>
     </Table>
     <RouterLink :to="{ name: 'TypeEdit' }">
@@ -38,20 +39,23 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const items = computed(() => selectItems(store));
     onMounted(() => {
       fetchItems(store);
     });
     return {
-      items: computed(() => selectItems(store)),
+      items,
       onClickRemove: (id) => {
         const isConfirmRemove = confirm(
           "Вы действительно хотите удалить запись?"
         );
         if (isConfirmRemove) {
           removeItem(store, id);
+          fetchItems(store);
         }
       },
       onClickEdit: (id) => {
+        console.log(id);
         router.push({ name: "TypeEdit", params: { id } });
       },
     };

@@ -13,7 +13,7 @@
           <td v-for="(key, idy) in colKeys" :key="idy">
             <slot :name="key" v-bind="{ item }">
               <div v-if="key === 'type_name' && headers[0].isWorks !== 'true'">
-                <a @click.prevent="filter(item['id'])" href="#">{{
+                <a @click.prevent="filter(item['type_id'])" href="#">{{
                   item[key]
                 }}</a>
               </div>

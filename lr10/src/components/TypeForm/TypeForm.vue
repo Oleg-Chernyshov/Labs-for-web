@@ -1,56 +1,64 @@
 <template>
   <div :class="$style.root">
-    <div v-if="form.id" :class="$style.item">
+    <div v-if="form.type_id" :class="$style.item">
       <div :class="$style.label">
         <label for="id">id</label>
       </div>
-      <input :value="form.id" disabled :class="$style.input" id="id" placeholder="id" type="text">
+      <input
+        :value="form.type_id"
+        disabled
+        :class="$style.input"
+        id="id"
+        placeholder="id"
+        type="text"
+      />
     </div>
     <div :class="$style.item">
       <div :class="$style.label">
-        <label for="type">Название типа</label>
+        <label for="name">Название типа</label>
       </div>
-      <select v-model="form.type" :class="$style.select" name="type" id="type">
-        <option v-for="({ type, id }) in groupList" :key="id" :value="type">
-          {{ type }}
-        </option>
-      </select>
+      <input
+        v-model="form.type_name"
+        :class="$style.input"
+        id="name"
+        placeholder="Название"
+        type="text"
+      />
     </div>
     <div :class="$style.item">
-      <div :class="$style.label">
-        <label for="description">Описание</label>
-      </div>
-      <input v-model="form.description" :class="$style.input" id="description" placeholder="Описание" type="text">
-    </div>
-    <div :class="$style.item">
-      <Btn @click="onClick" :disabled="!isValidForm" theme="info">Сохранить</Btn>
+      <Btn @click="onClick" :disabled="!isValidForm" theme="info"
+        >Сохранить</Btn
+      >
     </div>
   </div>
 </template>
 
 <script>
-import { computed, reactive, onBeforeMount, watchEffect } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { computed, reactive, onBeforeMount, watchEffect } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-import { selectItemById, fetchItems, selectItems } from '@/store/types/selectors';
-import Btn from '@/components/Btn/Btn';
+import {
+  selectItemById,
+  fetchItems,
+  selectItems,
+} from "@/store/types/selectors";
+import Btn from "@/components/Btn/Btn";
 export default {
-  name: 'TypeForm',
+  name: "TypeForm",
   components: {
     Btn,
   },
   props: {
-    id: { type: String, default: '' },
+    id: { type: String, default: "" },
   },
   setup(props, context) {
     const store = useStore();
     const router = useRouter();
     const groupList = computed(() => selectItems(store));
     const form = reactive({
-      id: '',
-      type: '',
-      description: '',
+      type_id: "",
+      type_name: "",
     });
 
     onBeforeMount(() => {
@@ -58,24 +66,23 @@ export default {
     });
 
     watchEffect(() => {
-      const type = selectItemById( store,  props.id );
-      Object.keys(type).forEach(key => {
-        form[key] = type[key]
-      })
+      const type = selectItemById(store, props.id);
+      Object.keys(type).forEach((key) => {
+        form[key] = type[key];
+      });
     });
 
     return {
       groupList,
       form,
-      isValidForm: computed(() =>  !!(form.type && form.description)),
+      isValidForm: computed(() => !!form.type_name),
       onClick: () => {
-        context.emit('submit', form);
-        router.push({ name: 'Types' })
+        context.emit("submit", form);
+        router.push({ name: "Types" });
       },
-    }
-
-  }
-}
+    };
+  },
+};
 </script>
 
 <style module lang="scss">
@@ -127,6 +134,5 @@ export default {
     border-radius: 0.25rem;
     appearance: none;
   }
-
 }
 </style>

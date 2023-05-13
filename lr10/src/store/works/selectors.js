@@ -28,7 +28,7 @@ export const selectItemById = (store, id) => {
   return getters['works/itemsByKey'][id] || {};
 }
 
-export const filter = (store, type) => {
+export const filter = (store, type_id) => {
   const { dispatch } = store;
-  dispatch('works/filter', { type })
+  dispatch('works/filter', { type_id })
 }

@@ -8,14 +8,13 @@ export default {
   getters: {
     items: state => state.items,
     itemsByKey: state => state.items.reduce((res, cur) => {
-      res[cur['id']] = cur;
+      res[cur['type_id']] = cur;
       return res;
     }, {}),
   },
   mutations: {
     setItems: (state, items) => {
-      if(1)
-        state.items = items;
+      state.items = items;
     },
     addItem: (state, item) => {
       state.items.push(item);
@@ -38,12 +37,12 @@ export default {
       const idRemovedItem = await api.remove( id );
       commit('removeItem', idRemovedItem);
     },
-    addItem: async ({ commit }, { type, description }) => {
-      const item = await api.add({ type, description });
+    addItem: async ({ commit }, { type_name }) => {
+      const item = await api.add({ type_name });
       commit('addItem', item);
     },
-    updateItem: async ({ commit }, { id, type, description }) => {
-      const item = await api.update({ id, type, description });
+    updateItem: async ({ commit }, { type_id, type_name }) => {
+      const item = await api.update({ type_id, type_name });
       commit('updateItem', item);
     }
   },

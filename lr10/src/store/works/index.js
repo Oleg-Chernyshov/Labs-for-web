@@ -54,8 +54,8 @@ export default {
       const item = await api.update({ id, name, description, cost, type_name });
       commit('updateItem', item);
     },
-    filter: async ({ commit }, { type }) => {
-      const filter = await api.filter(type)
+    filter: async ({ commit }, { type_id }) => {
+      const filter = await api.filter(type_id)
       const items = await filter.json()
       commit("filterTypes", items)
     },

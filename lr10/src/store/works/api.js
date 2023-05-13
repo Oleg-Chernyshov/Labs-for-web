@@ -15,7 +15,13 @@ class Works extends Api {
    * @param works объект работы, взятый из FormStudent
    * @returns {Promise<*>}
    */
-  filter = (type) => this.rest('/works/list-filtred.json')
+  filter = (type_id) => this.rest('/works/list-filtred.json',{
+    method: 'POST',
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "id=" + type_id
+  })
 
   /**
    * Удалит работу по id

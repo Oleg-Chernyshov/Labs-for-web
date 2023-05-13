@@ -13,17 +13,17 @@ export const removeItem = ( store, id ) => {
   dispatch('types/removeItem', id);
 }
 
-export const addItem = ( store, { type, description } ) => {
+export const addItem = ( store, { type_name } ) => {
   const { dispatch } = store;
-  dispatch('types/addItem', { type, description });
+  dispatch('types/addItem', { type_name });
 }
 
-export const updateItem = ( store, { id, type, description }) => {
+export const updateItem = ( store, { type_id, type_name }) => {
   const { dispatch } = store;
-  dispatch('types/updateItem', { id, type, description });
+  dispatch('types/updateItem', { type_id, type_name });
 }
 
-export const selectItemById = (store, id) => {
+export const selectItemById = (store, type_id) => {
   const { getters } = store;
-  return getters['types/itemsByKey'][id] || {};
+  return getters['types/itemsByKey'][type_id] || {};
 }

@@ -15,8 +15,10 @@ class Types extends Api {
    */
   remove = ( id ) => this.rest('/types/delete-item', {
     method: 'POST',
-    'Content-Type': 'application/json',
-    body: JSON.stringify({ id }),
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "type="+ JSON.stringify({ id }),
   }).then(() => id) // then - заглушка, пока метод ничего не возвращает
 
   /**
@@ -26,9 +28,11 @@ class Types extends Api {
    */
   add = ( type ) =>  this.rest('/types/add-item', {
     method: 'POST',
-    'Content-Type': 'application/json',
-    body: JSON.stringify(type),
-  }).then(() => ({...type, id: new Date().getTime()})) // then - заглушка, пока метод ничего не возвращает
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "type="+JSON.stringify(type)
+  }).then(() => (type)) // then - заглушка, пока метод ничего не возвращает
 
   /**
    * Отправит измененную запись
@@ -37,8 +41,10 @@ class Types extends Api {
    */
   update = ( type ) => this.rest('/types/update-item', {
     method: 'POST',
-    'Content-Type': 'application/json',
-    body: JSON.stringify(type),
+    headers: {
+      "Content-type": 'application/x-www-form-urlencoded'
+    },
+    body: "type=" + JSON.stringify(type),
   }).then(() => type) // then - заглушка, пока метод ничего не возвращает
 
 }
