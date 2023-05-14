@@ -14,7 +14,12 @@
       :items="items"
     >
       <template v-slot:control="{ item }">
-        <Btn @click="onClickEdit(item.id)" theme="info">Изменить</Btn>
+        <Btn
+          :class="$style.controlBtn"
+          @click="onClickEdit(item.id)"
+          theme="info"
+          >Изменить</Btn
+        >
         <Btn @click="onClickRemove(item.id)" theme="danger">Удалить</Btn>
       </template>
     </Table>
@@ -26,7 +31,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 import { selectItems, removeItem, fetchItems } from "@/store/works/selectors";
@@ -42,9 +47,6 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    onMounted(() => {
-      //fetchItems(store);
-    });
     return {
       items: computed(() => selectItems(store)),
       onClickRemove: (id) => {
@@ -72,5 +74,15 @@ export default {
   .create {
     margin-top: 16px;
   }
+}
+.myBtn {
+  border-radius: 5px;
+  background-color: rgb(127, 105, 252);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.controlBtn {
+  margin-bottom: 10px;
 }
 </style>

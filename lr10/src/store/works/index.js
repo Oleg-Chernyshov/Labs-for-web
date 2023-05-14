@@ -29,15 +29,12 @@ export default {
     },
     filterTypes: (state, filter) => {
       state.items = filter
-      console.log(state.items);
     }
   },
   actions: {
     fetchItems: async ({ commit }) => {
       const response = await api.works();
-      console.log(response);
       const items = await response.json();
-      console.log(items);
       commit('setItems', items)
     },
     removeItem: async ({ commit }, id) => {
@@ -46,7 +43,6 @@ export default {
 
     },
     addItem: async ({ commit }, { name, description, cost, type_name }) => {
-      console.log(cost,type_name);
       const item = await api.add({ name, description, cost, type_name })
       commit('setItem', item)
     },

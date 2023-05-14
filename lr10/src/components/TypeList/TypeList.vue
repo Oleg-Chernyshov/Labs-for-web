@@ -55,7 +55,6 @@ export default {
         }
       },
       onClickEdit: (id) => {
-        console.log(id);
         router.push({ name: "TypeEdit", params: { id } });
       },
     };

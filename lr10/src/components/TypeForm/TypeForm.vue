@@ -55,7 +55,7 @@ export default {
   setup(props, context) {
     const store = useStore();
     const router = useRouter();
-    const groupList = computed(() => selectItems(store));
+    const typeList = computed(() => selectItems(store));
     const form = reactive({
       type_id: "",
       type_name: "",
@@ -73,7 +73,7 @@ export default {
     });
 
     return {
-      groupList,
+      typeList,
       form,
       isValidForm: computed(() => !!form.type_name),
       onClick: () => {

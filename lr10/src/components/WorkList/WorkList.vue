@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <button @click="Refresh">Сбросить фильтр</button>
+    <button :class="$style.myBtn" @click="Refresh">Сбросить фильтр</button>
     <Table
       :headers="[
         { isWorks: 'true' },
@@ -14,7 +14,12 @@
       :items="items"
     >
       <template v-slot:control="{ item }">
-        <Btn @click="onClickEdit(item.id)" theme="info">Изменить</Btn>
+        <Btn
+          :class="$style.controlBtn"
+          @click="onClickEdit(item.id)"
+          theme="info"
+          >Изменить</Btn
+        >
         <Btn @click="onClickRemove(item.id)" theme="danger">Удалить</Btn>
       </template>
     </Table>
@@ -71,6 +76,17 @@ export default {
 .root {
   .create {
     margin-top: 16px;
+    margin-bottom: 16px;
   }
+}
+.myBtn {
+  border-radius: 5px;
+  background-color: rgb(127, 105, 252);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.controlBtn {
+  margin-bottom: 10px;
 }
 </style>

@@ -60,7 +60,7 @@
         id="type"
       >
         <option
-          v-for="{ type_name, type_id } in groupList"
+          v-for="{ type_name, type_id } in typeList"
           :key="type_id"
           :value="type_name"
         >
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { computed, reactive, onBeforeMount, watchEffect, watch } from "vue";
+import { computed, reactive, onBeforeMount, watchEffect } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
@@ -99,8 +99,7 @@ export default {
   setup(props, context) {
     const store = useStore();
     const router = useRouter();
-    const groupList = computed(() => selectGroups(store));
-    console.log(groupList);
+    const typeList = computed(() => selectGroups(store));
     const form = reactive({
       id: "",
       name: "",
@@ -109,7 +108,6 @@ export default {
       type_name: "",
     });
 
-    console.log(form);
     onBeforeMount(() => {
       fetchItems(store);
       fetchGroups(store);
@@ -117,26 +115,23 @@ export default {
 
     watchEffect(() => {
       const type = selectItemById(store, props.id);
-      console.log(type);
       Object.keys(type).forEach((type_id) => {
         form[type_id] = type[type_id];
       });
     });
 
     return {
-      groupList,
+      typeList,
       form,
       isValidForm: computed(
         () =>
           !!(form.name && form.description && form.cost >= 0 && form.type_name)
       ),
       onClick: () => {
-        console.log(groupList.value);
         let index = -1;
-        for (let i = 0; i < groupList.value.length; i++) {
-          console.log(groupList);
-          if (groupList.value[i].type_name == form.type_name)
-            index = groupList.value[i].type_id;
+        for (let i = 0; i < typeList.value.length; i++) {
+          if (typeList.value[i].type_name == form.type_name)
+            index = typeList.value[i].type_id;
         }
         form.type_name = index;
         context.emit("submit", form);
