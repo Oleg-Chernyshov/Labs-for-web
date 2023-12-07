@@ -1,9 +1,9 @@
 <template>
   <div id="nav">
-    <RouterLink :to="{ name: 'Types' }">Ремонт</RouterLink>
-    <RouterLink :to="{ name: 'Works' }">Работы</RouterLink>
+    <RouterLink :to="{ name: 'Material' }">Материалы</RouterLink>
+    <RouterLink :to="{ name: 'Product' }">Товары</RouterLink>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 <style lang="scss">
 body {
@@ -26,7 +26,7 @@ body {
   text-decoration: none;
   &:not(:last-child) {
     margin-right: 8px;
-   }
+  }
 }
 
 #nav a.router-link-exact-active {

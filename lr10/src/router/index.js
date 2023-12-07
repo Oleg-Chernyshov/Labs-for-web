@@ -2,49 +2,50 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/works',
-    name: 'Works',
-    component: () => import('@/views/WorksPage')
+    path: '/product',
+    name: 'Product',
+    component: () => import('@/views/ProductPage')
   },
   {
-    path: '/types',
-    name: 'Types',
-    component: () => import('@/views/TypesPage'),
+    path: '/material',
+    name: 'Material',
+    component: () => import('@/views/MaterialPage'),
   },
   {
-    path: '/work-edit/:id?',
-    name: 'WorkEdit',
+    path: '/product-edit/:id?',
+    name: 'ProductEdit',
     props: (route) => {
       return {
         id: route.params.id,
       }
     },
-    component: () => import('@/views/WorkEdit'),
+    component: () => import('@/views/ProductEdit'),
   },
   {
-    path: '/type-edit/:id?',
-    name: 'TypeEdit',
+    path: '/material-edit/:id?/:name?',
+    name: 'MaterialEdit',
     props: (route) => {
       return {
         id: route.params.id,
+        name: route.params.name
       }
     },
-    component: () => import('@/views/TypeEdit'),
+    component: () => import('@/views/MaterialEdit'),
   },
   {
-    path: '/work-sorted/:filter_id?',
-    name: 'WorkSorted',
+    path: '/product-sorted/:filter_id?',
+    name: 'ProductSorted',
     props: (route) => {
       return {
         id: route.params.filter_id,
       }
     },
-    component: () => import('@/views/WorkSorted'),
+    component: () => import('@/views/ProductSorted'),
   },
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',
-    component: () => import('@/views/WorksPage'),
+    component: () => import('@/views/ProductPage'),
   }
 ]
 

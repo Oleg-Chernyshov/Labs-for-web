@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
-import works from './works';
-import types from './types';
+import product from './product';
+import material from './material';
 export default createStore({
   modules: {
-    works,
-    types,
+    product,
+    material,
   },
   state: {},
   mutations: {},

@@ -12,8 +12,12 @@
         <tr v-for="(item, idx) in items" :key="idx">
           <td v-for="(key, idy) in colKeys" :key="idy">
             <slot :name="key" v-bind="{ item }">
-              <div v-if="key === 'type_name' && headers[0].isWorks !== 'true'">
-                <a @click.prevent="filter(item['type_id'])" href="#">{{
+              <div
+                v-if="
+                  key === 'material_name' && headers[0].isMaterial == 'true'
+                "
+              >
+                <a @click.prevent="filter(item['material_id'])" href="#">{{
                   item[key]
                 }}</a>
               </div>
@@ -31,7 +35,7 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { filter } from "@/store/works/selectors";
+import { filter } from "@/store/product/selectors";
 export default {
   name: "Table",
   props: {
@@ -49,7 +53,7 @@ export default {
     return {
       filter(filter_id) {
         filter(store, filter_id);
-        router.push({ name: "WorkSorted", params: { filter_id } });
+        router.push({ name: "ProductSorted", params: { filter_id } });
       },
     };
   },
